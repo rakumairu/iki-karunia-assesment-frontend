@@ -62,19 +62,39 @@ export default {
       return Object.values(this.ratingStar).reduce((total, value) => total + value)
     },
     five () {
-      return Math.round((this.ratingStar.five / this.total) * 100)
+      if (this.ratingStar.five !== 0) {
+        return Math.round((this.ratingStar.five / this.total) * 100)
+      } else {
+        return 0
+      }
     },
     four () {
-      return Math.round((this.ratingStar.four / this.total) * 100)
+      if (this.ratingStar.four !== 0) {
+        return Math.round((this.ratingStar.four / this.total) * 100)
+      } else {
+        return 0
+      }
     },
     three () {
-      return Math.round((this.ratingStar.three / this.total) * 100)
+      if (this.ratingStar.three !== 0) {
+        return Math.round((this.ratingStar.three / this.total) * 100)
+      } else {
+        return 0
+      }
     },
     two () {
-      return Math.round((this.ratingStar.two / this.total) * 100)
+      if (this.ratingStar.two !== 0) {
+        return Math.round((this.ratingStar.two / this.total) * 100)
+      } else {
+        return 0
+      }
     },
     one () {
-      return Math.round((this.ratingStar.one / this.total) * 100)
+      if (this.ratingStar.one !== 0) {
+        return Math.round((this.ratingStar.one / this.total) * 100)
+      } else {
+        return 0
+      }
     }
   }
 }

@@ -16,12 +16,11 @@ export default {
     }
   },
   mounted () {
-    this.show = this.$route.name !== 'cash-cart'
+    this.show = this.$route.name !== 'cash-cart' && this.$route.name !== 'apps'
   },
   watch: {
     $route (to) {
-      console.log(to)
-      this.show = to.name !== 'cash-cart'
+      this.show = to.name !== 'cash-cart' && to.name !== 'apps'
     }
   },
   components: {

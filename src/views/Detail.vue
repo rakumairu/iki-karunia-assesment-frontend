@@ -1,23 +1,23 @@
 <template>
-  <div class="container px-0">
+  <div class="container px-0" v-if="app && comments">
     <div class="card mt-md-4 mt-sm-0">
       <div class="card-body">
         <div class="row">
           <div class="col-auto d-flex justify-content-start pr-0">
-            <img src="https://bulma.io/images/placeholders/96x96.png" class="mr-3 text-left" alt="#" width="96" height="96">
+            <img :src="app.logo_url" class="mr-3 text-left" alt="#" width="96" height="96">
           </div>
           <div class="col d-flex flex-column justify-content-start pl-0">
-            <h4 class="mt-3 text-left">Center-aligned media</h4>
+            <h4 class="mt-3 text-left">{{ app.name }}</h4>
             <div class="d-flex flex-row justify-content-start">
-              <small><Rating class="text-left" totalStar='80' totalRater='20' className='mr-1' /></small>
-              <small><span class="ml-2 font-weight-light">12344</span></small>
+              <small><Rating class="text-left" :totalStar='starTotal' :totalRater='peopleRate' className='mr-1' /></small>
+              <small><span class="ml-2 font-weight-light">{{ peopleRate }}</span></small>
               <small><font-awesome-icon :icon="['fas', 'user']" class="ml-2" /></small>
             </div>
           </div>
         </div>
         <div class="row mt-3">
           <div class="col d-flex">
-            <a href="#" class="btn btn-success button-mobile">Install</a>
+            <a :href="app.apk_url" class="btn btn-success button-mobile" target="_blank">Install</a>
           </div>
         </div>
         <div class="row mt-3">
@@ -38,21 +38,28 @@
         </div>
         <div class="row mt-2">
           <div class="col-md-6 col-sm-12 mb-md-0 mb-3">
-            <h1 class="rating-score mb-0">4.0</h1>
-            <Rating totalStar='80' totalRater='20' className='mr-1' />
+            <h1 class="rating-score mb-0">{{ ratingNumber }}</h1>
+            <Rating :totalStar='starTotal' :totalRater='peopleRate' className='mr-1' />
             <br>
             <font-awesome-icon :icon="['fas', 'user']" />
-            <span class="ml-2 font-weight-light">12344</span>
+            <span class="ml-2 font-weight-light">{{ peopleRate }}</span>
           </div>
           <div class="col-md-6 col-sm-12">
-            <Scorecard :ratingStar='dummyStar' />
+            <Scorecard :ratingStar='starArray' />
           </div>
         </div>
         <div class="row mt-4">
           <div class="col">
-            <Comment />
-            <Comment />
-            <Comment />
+            <p v-if="comments.length === 0">Belum ada resensi</p>
+            <Comment v-for="(comment, index) in firstFourComments" :key="index" v-bind="comment" />
+            <router-link
+              style="color: #33691e; font-weight: 500;"
+              class="text-uppercase"
+              :to="{ name: 'reviews', params: { appId: $route.params.appId } }"
+              v-if="comments.length !== 0"
+            >
+              Lihat Semua Resensi
+            </router-link>
           </div>
         </div>
         <!-- End of Review -->
@@ -66,27 +73,27 @@
         <div class="row">
           <div class="col-6 text-left">
             <p class="font-weight-bold mb-0">Diupdate</p>
-            <p class="font-weight-light">2019-11-05</p>
+            <p class="font-weight-light">{{ app.updated }}</p>
           </div>
           <div class="col-6 text-left">
             <p class="font-weight-bold mb-0">Ukuran</p>
-            <p class="font-weight-light">35MB</p>
+            <p class="font-weight-light">{{ app.size }}</p>
           </div>
           <div class="col-6 text-left">
             <p class="font-weight-bold mb-0">Install</p>
-            <p class="font-weight-light">100.000+</p>
+            <p class="font-weight-light">{{ app.installed }}</p>
           </div>
           <div class="col-6 text-left">
             <p class="font-weight-bold mb-0">Versi Terkini</p>
-            <p class="font-weight-light">1.5.4</p>
+            <p class="font-weight-light">{{ app.current_version }}</p>
           </div>
           <div class="col-6 text-left">
             <p class="font-weight-bold mb-0">Versi Android</p>
-            <p class="font-weight-light">4.4 dan lebih</p>
+            <p class="font-weight-light">{{ app.android_version }}</p>
           </div>
           <div class="col-6 text-left">
             <p class="font-weight-bold mb-0">Rating Konten</p>
-            <p class="font-weight-light">Rating 3+<br>pelajari lebih lanjut</p>
+            <p class="font-weight-light">{{ app.content_rating }}<br>pelajari lebih lanjut</p>
           </div>
           <div class="col-6 text-left">
             <p class="font-weight-bold mb-0">Izin</p>
@@ -98,11 +105,11 @@
           </div>
           <div class="col-6 text-left">
             <p class="font-weight-bold mb-0">Ditawarkan Oleh</p>
-            <p class="font-weight-light">Mobile Loan</p>
+            <p class="font-weight-light">{{ app.offered_by }}</p>
           </div>
           <div class="col-6 text-left">
             <p class="font-weight-bold mb-0">Developer</p>
-            <p class="font-weight-light">Mobile Loan</p>
+            <p class="font-weight-light">{{ app.developer }}</p>
           </div>
         </div>
         <!-- End of Additional Information -->
@@ -113,13 +120,12 @@
           </div>
         </div>
         <!-- Similar Apps -->
-        <swiper :options='swiperOption'>
-          <swiper-slide><AppSuggestion :appId="'2'" /></swiper-slide>
-          <swiper-slide><AppSuggestion /></swiper-slide>
-          <swiper-slide><AppSuggestion /></swiper-slide>
-          <swiper-slide><AppSuggestion /></swiper-slide>
-          <swiper-slide><AppSuggestion /></swiper-slide>
-          <swiper-slide><AppSuggestion /></swiper-slide>
+        <swiper :options='swiperOption' v-if="apps.length > 0">
+          <swiper-slide v-for="(app, index) in apps" :key="index">
+            <router-link :to="{ name: 'detail', params: { id: app.id } }" :key="app.id" >
+              <AppSuggestion v-bind="app" />
+            </router-link>
+          </swiper-slide>
         </swiper>
         <!-- End of Similar Apps -->
       </div>
@@ -140,10 +146,15 @@ import AppSuggestion from '../components/AppSuggestion'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
+import axios from 'axios'
+
 export default {
   name: 'rating',
   data () {
     return {
+      app: null,
+      apps: [],
+      comments: [],
       dummyStar: {
         five: 10000,
         four: 390,
@@ -160,9 +171,59 @@ export default {
     }
   },
   methods: {
-    direct (e) {
-      console.log(e)
+    sum (total, val) {
+      return total + parseInt(val.rating)
     }
+  },
+  computed: {
+    starTotal () {
+      if (this.comments.length > 0) {
+        return this.comments.reduce(this.sum, 0)
+      } else {
+        return 0
+      }
+    },
+    peopleRate () {
+      return this.comments.length
+    },
+    ratingNumber () {
+      if (this.comments.length > 0) {
+        return (this.starTotal / this.peopleRate).toFixed(1)
+      } else {
+        return 0
+      }
+    },
+    starArray () {
+      let five = this.comments.filter(element => element.rating === 5).length
+      let four = this.comments.filter(element => element.rating === 4).length
+      let three = this.comments.filter(element => element.rating === 3).length
+      let two = this.comments.filter(element => element.rating === 2).length
+      let one = this.comments.filter(element => element.rating === 1).length
+
+      return {
+        five, four, three, two, one
+      }
+    },
+    firstFourComments () {
+      return this.comments.slice(0, 4).map(element => element)
+    }
+  },
+  mounted () {
+    let self = this
+    axios.post('http://localhost:8000/api/app', { id: self.$route.params.appId })
+      .then(function (response) {
+        self.app = response.data
+      })
+
+    axios.post('http://localhost:8000/api/comments', { id: self.$route.params.appId })
+      .then(function (response) {
+        self.comments = response.data
+      })
+
+    axios.get('http://localhost:8000/api/suggest')
+      .then(response => {
+        self.apps = response.data
+      })
   },
   components: {
     Rating,

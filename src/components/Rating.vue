@@ -11,10 +11,10 @@
 <script>
 export default {
   name: 'rating',
-  props: ['totalStar', 'totalRater', 'className'],
+  props: ['totalStar', 'totalRater', 'className', 'star'],
   computed: {
     rating () {
-      return this.totalStar / this.totalRater
+      return this.star ? this.star : this.totalStar / this.totalRater
     }
   }
 }
