@@ -17,7 +17,8 @@
         </div>
         <div class="row mt-3">
           <div class="col d-flex">
-            <a :href="app.apk_url" class="btn btn-success button-mobile" target="_blank">Install</a>
+            <button class="btn btn-success button-mobile" @click="install()">Install</button>
+            <a :href="app.apk_url" target="_blank" hidden ref="install_link"></a>
           </div>
         </div>
         <div class="row mt-3">
@@ -121,8 +122,8 @@
         </div>
         <!-- Similar Apps -->
         <swiper :options='swiperOption' v-if="apps.length > 0">
-          <swiper-slide v-for="(app, index) in apps" :key="index">
-            <router-link :to="{ name: 'detail', params: { id: app.id } }" :key="app.id" >
+          <swiper-slide v-for="(app) in apps" :key="app.id">
+            <router-link :to="{ name: 'detail', params: { appId: app.id } }" :key="app.id" >
               <AppSuggestion v-bind="app" />
             </router-link>
           </swiper-slide>
@@ -173,6 +174,39 @@ export default {
   methods: {
     sum (total, val) {
       return total + parseInt(val.rating)
+    },
+    loadData () {
+      let self = this
+      /**
+       * Load current app data
+       */
+      axios.post('http://localhost:8000/api/app', { id: self.$route.params.appId })
+        .then(function (response) {
+          self.app = response.data
+        })
+
+      /**
+       * Load comments for current app
+       */
+      axios.post('http://localhost:8000/api/comments', { id: self.$route.params.appId })
+        .then(function (response) {
+          self.comments = response.data
+        })
+
+      /**
+       * Load suggestion apps
+       */
+      axios.post('http://localhost:8000/api/suggest', { appId: self.$route.params.appId })
+        .then(response => {
+          self.apps = response.data
+        })
+    },
+    countView () {
+      axios.post('http://localhost:8000/api/add_open_count', { app_id: this.$route.params.appId })
+    },
+    install () {
+      axios.post('http://localhost:8000/api/add_install_count', { app_id: this.$route.params.appId })
+      this.$refs['install_link'].click()
     }
   },
   computed: {
@@ -209,21 +243,14 @@ export default {
     }
   },
   mounted () {
-    let self = this
-    axios.post('http://localhost:8000/api/app', { id: self.$route.params.appId })
-      .then(function (response) {
-        self.app = response.data
-      })
-
-    axios.post('http://localhost:8000/api/comments', { id: self.$route.params.appId })
-      .then(function (response) {
-        self.comments = response.data
-      })
-
-    axios.get('http://localhost:8000/api/suggest')
-      .then(response => {
-        self.apps = response.data
-      })
+    this.loadData()
+    this.countView()
+  },
+  watch: {
+    '$route.params.appId': function () {
+      this.loadData()
+      this.countView()
+    }
   },
   components: {
     Rating,
