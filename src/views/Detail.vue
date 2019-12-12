@@ -180,7 +180,7 @@ export default {
       /**
        * Load current app data
        */
-      axios.post('http://localhost:8000/api/app', { id: self.$route.params.appId })
+      axios.post('http://147.139.138.100:8000/api/app', { id: self.$route.params.appId })
         .then(function (response) {
           self.app = response.data
         })
@@ -188,7 +188,7 @@ export default {
       /**
        * Load comments for current app
        */
-      axios.post('http://localhost:8000/api/comments', { id: self.$route.params.appId })
+      axios.post('http://147.139.138.100:8000/api/comments', { id: self.$route.params.appId })
         .then(function (response) {
           self.comments = response.data
         })
@@ -196,16 +196,16 @@ export default {
       /**
        * Load suggestion apps
        */
-      axios.post('http://localhost:8000/api/suggest', { appId: self.$route.params.appId })
+      axios.post('http://147.139.138.100:8000/api/suggest', { appId: self.$route.params.appId })
         .then(response => {
           self.apps = response.data
         })
     },
     countView () {
-      axios.post('http://localhost:8000/api/add_open_count', { app_id: this.$route.params.appId })
+      axios.post('http://147.139.138.100:8000/api/add_open_count', { app_id: this.$route.params.appId })
     },
     install () {
-      axios.post('http://localhost:8000/api/add_install_count', { app_id: this.$route.params.appId })
+      axios.post('http://147.139.138.100:8000/api/add_install_count', { app_id: this.$route.params.appId })
       this.$refs['install_link'].click()
     }
   },

@@ -65,15 +65,15 @@ export default {
   },
   mounted () {
     let self = this
-    axios.get('http://localhost:8000/api/banners')
+    axios.get('http://147.139.138.100:8000/api/banners')
       .then(response => {
         self.banners = response.data
       })
-    axios.get('http://localhost:8000/api/apps')
+    axios.get('http://147.139.138.100:8000/api/apps')
       .then(response => {
         self.apps = response.data
       })
-    axios.get('http://localhost:8000/api/notifications')
+    axios.get('http://147.139.138.100:8000/api/notifications')
       .then(response => {
         self.notifications = response.data
       })

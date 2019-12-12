@@ -31,7 +31,7 @@ export default {
   },
   mounted () {
     let self = this
-    axios.post('http://localhost:8000/api/comments', { id: self.$route.params.appId })
+    axios.post('http://147.139.138.100:8000/api/comments', { id: self.$route.params.appId })
       .then(function (response) {
         self.comments = response.data
       })
