@@ -9,7 +9,6 @@
             </a>
           </swiper-slide>
         </swiper>
-        <div><p>Ini Banner</p></div>
         <swiper :options='swiperOptionVertical' class="swiper-2" v-if="notifications.length > 0">
           <swiper-slide v-for="(notification, index) in notifications" :key="index">
             <span>{{ notification.date }} {{ notification.time }} In {{ notification.name }} Sukses Meminjam {{ notification.amount }} Istilah {{ notification.term }}</span>
@@ -17,7 +16,7 @@
         </swiper>
       </div>
     </div>
-    <div class="row">
+    <div class="row pt-3">
       <div class="col-md-6">
         <h4 class="text-left">Trending</h4>
       </div>
