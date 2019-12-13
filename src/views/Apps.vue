@@ -10,8 +10,6 @@
 </template>
 
 <script>
-import ProductCard from '../components/ProductCard'
-
 import axios from 'axios'
 
 export default {
@@ -29,7 +27,7 @@ export default {
       })
   },
   components: {
-    ProductCard
+    ProductCard: () => import('../components/ProductCard')
   }
 }
 </script>

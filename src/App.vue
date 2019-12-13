@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import NavBar from '@/views/NavBar'
-
 export default {
   name: 'app',
   data () {
@@ -26,7 +24,7 @@ export default {
     }
   },
   components: {
-    NavBar
+    NavBar: () => import(/* webpackPrefetch: true */ '@/views/NavBar')
   }
 }
 </script>

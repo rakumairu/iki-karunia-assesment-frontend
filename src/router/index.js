@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Banner from '../views/Banner.vue'
-import Detail from '../views/Detail.vue'
-import Reviews from '../views/Reviews.vue'
-import Apps from '../views/Apps.vue'
-import NotFound from '../views/NotFound.vue'
+const Banner = () => import('../views/Banner.vue')
+const Detail = () => import('../views/Detail.vue')
+const Reviews = () => import('../views/Reviews.vue')
+const Apps = () => import('../views/Apps.vue')
+const NotFound = () => import('../views/NotFound.vue')
 
 Vue.use(VueRouter)
 

@@ -20,8 +20,6 @@
 <script>
 import axios from 'axios'
 
-import Comment from '../components/Comment'
-
 export default {
   name: 'reviews',
   data () {
@@ -37,7 +35,7 @@ export default {
       })
   },
   components: {
-    Comment
+    Comment: () => import('../components/Comment')
   }
 }
 </script>

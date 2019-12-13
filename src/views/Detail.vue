@@ -139,15 +139,9 @@
 </template>
 
 <script>
-import Rating from '../components/Rating'
-import Scorecard from '../components/Scorecard'
-import Comment from '../components/Comment'
-import AppSuggestion from '../components/AppSuggestion'
-
-import 'swiper/dist/css/swiper.css'
-import { swiper, swiperSlide } from 'vue-awesome-swiper'
-
+// const axios = () => import('axios')
 import axios from 'axios'
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
 export default {
   name: 'rating',
@@ -257,12 +251,12 @@ export default {
     }
   },
   components: {
-    Rating,
-    Scorecard,
-    Comment,
+    Rating: () => import('../components/Rating'),
+    Scorecard: () => import('../components/Scorecard'),
+    Comment: () => import('../components/Comment'),
+    AppSuggestion: () => import('../components/AppSuggestion'),
     swiper,
-    swiperSlide,
-    AppSuggestion
+    swiperSlide
   }
 }
 </script>

@@ -31,9 +31,6 @@
 </template>
 
 <script>
-import ProductCard from '../components/ProductCard'
-import OnlineService from '../components/OnlineService'
-
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 
@@ -79,8 +76,8 @@ export default {
       })
   },
   components: {
-    ProductCard,
-    OnlineService,
+    ProductCard: () => import('../components/ProductCard'),
+    OnlineService: () => import('../components/OnlineService'),
     swiper,
     swiperSlide
   }
