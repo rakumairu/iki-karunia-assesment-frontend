@@ -46,7 +46,7 @@ export default {
   },
   mounted () {
     let self = this
-    axios.post('http://localhost:8000/api/comments', { id: self.id })
+    axios.post('http://147.139.138.100:8000/api/comments', { id: self.id })
       .then(function (response) {
         self.comments = response.data
       })

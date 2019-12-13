@@ -4,6 +4,7 @@ import Banner from '../views/Banner.vue'
 import Detail from '../views/Detail.vue'
 import Reviews from '../views/Reviews.vue'
 import Apps from '../views/Apps.vue'
+import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/apps',
     name: 'apps',
     component: Apps
+  },
+  {
+    path: '*',
+    name: 'not-found',
+    component: NotFound
   }
 ]
 

@@ -182,7 +182,11 @@ export default {
        */
       axios.post('http://147.139.138.100:8000/api/app', { id: self.$route.params.appId })
         .then(function (response) {
-          self.app = response.data
+          if (response.data.status === 'error') {
+            self.$router.push({ name: 'not-found' })
+          } else {
+            self.app = response.data
+          }
         })
 
       /**

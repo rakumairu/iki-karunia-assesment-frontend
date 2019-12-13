@@ -22,7 +22,7 @@ export default {
   },
   watch: {
     $route (to) {
-      this.show = to.name !== 'cash-cart' && to.name !== 'apps'
+      this.show = to.name !== 'cash-cart' && to.name !== 'apps' && to.name !== 'not-found'
     }
   },
   components: {
