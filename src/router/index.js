@@ -51,7 +51,6 @@ const routes = [
     name: 'reviews',
     component: Reviews,
     meta: {
-      title: 'Tercepat - Review Aplikasi',
       metaTags: [
         {
           name: 'description',

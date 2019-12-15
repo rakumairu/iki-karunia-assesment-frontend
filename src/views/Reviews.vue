@@ -34,6 +34,11 @@ export default {
         self.comments = response.data
       })
   },
+  created () {
+    if (!document.title.includes('| Review')) {
+      document.title = document.title + ' | Review'
+    }
+  },
   components: {
     Comment: () => import('../components/Comment')
   }
