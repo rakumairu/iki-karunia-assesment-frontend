@@ -33,8 +33,6 @@ export default {
       .then(function (response) {
         self.comments = response.data
       })
-  },
-  created () {
     if (!document.title.includes('| Review')) {
       document.title = document.title + ' | Review'
     }
