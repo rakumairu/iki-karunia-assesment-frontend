@@ -248,6 +248,9 @@ export default {
     '$route.params.appId': function () {
       this.loadData()
       this.countView()
+    },
+    app: function () {
+      document.title = this.app.name
     }
   },
   components: {

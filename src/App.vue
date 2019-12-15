@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <NavBar v-if="show" />
-    <transition name="fade">
+    <transition name="component-fade" mode="out-in">
       <router-view />
-    </transition>
+  </transition>
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
     }
   },
   mounted () {
-    this.show = this.$route.name !== 'cash-cart' && this.$route.name !== 'apps'
+    this.show = this.$route.name !== 'cash-cart' && this.$route.name !== 'apps' && this.$route.name !== 'not-found'
   },
   watch: {
     $route (to) {
@@ -51,11 +51,12 @@ export default {
   color: #42b983;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.component-fade-enter-active, .component-fade-leave-active {
+  transition: opacity .3s ease;
 }
 
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.component-fade-enter, .component-fade-leave-to
+/* .component-fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
 </style>

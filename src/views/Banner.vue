@@ -17,10 +17,10 @@
       </div>
     </div>
     <div class="row pt-3">
-      <div class="col-md-6">
+      <div class="col-6">
         <h4 class="text-left">Trending</h4>
       </div>
-      <div class="col-md-6">
+      <div class="col-6">
         <router-link :to="{ name: 'apps' }" tag="h4" class="text-right">Lihat Semua</router-link>
       </div>
       <ProductCard v-for="(app, index) in apps" :key="index" v-bind="app" />

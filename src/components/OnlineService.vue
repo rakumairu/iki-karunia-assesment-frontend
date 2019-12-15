@@ -1,8 +1,8 @@
 <template>
-  <a class="card bg-primary text-white stick-right fixed-bottom" style="width: 4rem; text-decoration: none;" target="_blank" href="https://google.com">
-    <ul class="list-group list-group-flush bg-primary">
-      <li class="list-group-item bg-primary px-1 pt-3"><font-awesome-icon :icon="['fas', 'comment-dots']" class="m-0 icon" />Online Service</li>
-      <li class="list-group-item bg-primary"><font-awesome-icon :icon="['fab', 'whatsapp']" class="m-0 icon" /></li>
+  <a class="card text-white stick-right fixed-bottom bg-whatsapp" style="width: 4rem; text-decoration: none;" target="_blank" href="https://api.whatsapp.com/send?phone=+6281291465687">
+    <ul class="list-group list-group-flush bg-whatsapp">
+      <!-- <li class="list-group-item px-1 pt-3"><font-awesome-icon :icon="['fas', 'comment-dots']" class="m-0 icon" />Online Service</li> -->
+      <li class="list-group-item bg-whatsapp px-1 pt-3"><font-awesome-icon :icon="['fab', 'whatsapp']" class="m-0 icon" />Online Service</li>
     </ul>
   </a>
 </template>
@@ -22,13 +22,20 @@ export default {
     font-size: 14px;
   }
 }
+
 li {
   font-size: 14px;
 }
+
 .icon {
   font-size: 24px;
 }
+
 .stick-right {
   left: unset !important;
+}
+
+.bg-whatsapp {
+  background-color: #1ebea5;
 }
 </style>
