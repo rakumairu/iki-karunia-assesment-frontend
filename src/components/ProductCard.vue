@@ -15,7 +15,7 @@
       <li class="list-group-item">
         <div class="row">
           <div class="col-4">
-            Rp{{ loan_amount_from }}-Rp{{ loan_amount_to }} <br>
+            Rp {{ loan_amount_from.toLocaleString() }} - Rp {{ loan_amount_to.toLocaleString() }} <br>
             Jumlah Pinjaman
           </div>
           <div class="col-4 border-right border-left">
