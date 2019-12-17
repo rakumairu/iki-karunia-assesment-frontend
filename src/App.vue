@@ -17,6 +17,7 @@ export default {
   },
   mounted () {
     this.show = this.$route.name !== 'cash-cart' && this.$route.name !== 'apps' && this.$route.name !== 'not-found'
+    document.getElementById('splash').style.display = 'none'
   },
   watch: {
     $route (to) {
