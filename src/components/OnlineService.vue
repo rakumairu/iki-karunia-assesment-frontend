@@ -1,5 +1,5 @@
 <template>
-  <a class="card text-white stick-right fixed-bottom bg-whatsapp" style="width: 4rem; text-decoration: none;" target="_blank" href="https://api.whatsapp.com/send?phone=+6281291465687">
+  <a class="card text-white stick-right fixed-bottom bg-whatsapp" style="width: 4rem; text-decoration: none;" target="_blank" href="https://api.whatsapp.com/send?phone=+6281291465687" rel="noopener">
     <ul class="list-group list-group-flush bg-whatsapp">
       <!-- <li class="list-group-item px-1 pt-3"><font-awesome-icon :icon="['fas', 'comment-dots']" class="m-0 icon" />Online Service</li> -->
       <li class="list-group-item bg-whatsapp px-1 pt-3"><font-awesome-icon :icon="['fab', 'whatsapp']" class="m-0 icon" />Online Service</li>
