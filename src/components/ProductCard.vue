@@ -9,7 +9,7 @@
           <h4 class="mt-3 text-left font-weight-bolder">{{ name }}</h4>
         </div>
         <div class="col-auto d-flex justify-content-end align-items-center">
-          <router-link :to="{ name: 'detail', params: { appId: id } }" class="btn btn-primary btn-lg float-right" :key="id">Ajukan</router-link>
+          <router-link :to="{ name: 'Detail', params: { appId: id } }" class="btn btn-primary btn-lg float-right" :key="id">Ajukan</router-link>
         </div>
       </li>
       <li class="list-group-item">

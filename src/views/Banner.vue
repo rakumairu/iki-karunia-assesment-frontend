@@ -21,7 +21,7 @@
         <h4 class="text-left">Trending</h4>
       </div>
       <div class="col-6">
-        <router-link :to="{ name: 'apps' }" tag="h4" class="text-right">Lihat Semua</router-link>
+        <router-link :to="{ name: 'Semua App' }" tag="h4" class="text-right">Lihat Semua</router-link>
       </div>
       <ProductCard v-for="(app, index) in apps" :key="index" v-bind="app" />
     </div>

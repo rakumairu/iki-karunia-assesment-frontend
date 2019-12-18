@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     direct () {
-      this.$router.push({ name: 'detail', params: { appId: this.id } })
+      this.$router.push({ name: 'Detail', params: { appId: this.id } })
     },
     sum (total, val) {
       return total + parseInt(val.rating)

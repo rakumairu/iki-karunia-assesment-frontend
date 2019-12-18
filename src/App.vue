@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <NavBar v-if="show" />
+    <NavBar />
     <transition name="component-fade" mode="out-in">
       <router-view />
-  </transition>
+    </transition>
   </div>
 </template>
 
@@ -12,16 +12,16 @@ export default {
   name: 'app',
   data () {
     return {
-      show: false
+      // show: false
     }
   },
   mounted () {
-    this.show = this.$route.name !== 'cash-cart' && this.$route.name !== 'apps' && this.$route.name !== 'not-found'
+    // this.show = this.$route.name !== 'cash-cart' && this.$route.name !== 'apps' && this.$route.name !== 'not-found'
     document.getElementById('splash').style.display = 'none'
   },
   watch: {
     $route (to) {
-      this.show = to.name !== 'cash-cart' && to.name !== 'apps' && to.name !== 'not-found'
+      // this.show = to.name !== 'cash-cart' && to.name !== 'apps' && to.name !== 'not-found'
     }
   },
   components: {

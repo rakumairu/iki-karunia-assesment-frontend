@@ -5,6 +5,7 @@ const Detail = () => import('../views/Detail.vue')
 const Reviews = () => import('../views/Reviews.vue')
 const Apps = () => import('../views/Apps.vue')
 const NotFound = () => import('../views/NotFound.vue')
+const Profile = () => import('../views/Profile.vue')
 
 Vue.use(VueRouter)
 
@@ -12,7 +13,7 @@ const routes = [
   {
     path: '/',
     alias: '/cashcart',
-    name: 'cash-cart',
+    name: 'Tercepat',
     component: Banner,
     meta: {
       title: 'Tercepat - Home',
@@ -30,7 +31,7 @@ const routes = [
   },
   {
     path: '/detail/:appId',
-    name: 'detail',
+    name: 'Detail',
     component: Detail,
     meta: {
       scrollToTop: true,
@@ -48,7 +49,7 @@ const routes = [
   },
   {
     path: '/reviews/:appId',
-    name: 'reviews',
+    name: 'Review',
     component: Reviews,
     meta: {
       metaTags: [
@@ -65,7 +66,7 @@ const routes = [
   },
   {
     path: '/apps',
-    name: 'apps',
+    name: 'Semua App',
     component: Apps,
     meta: {
       title: 'Tercepat - Semua Aplikasi',
@@ -77,6 +78,24 @@ const routes = [
         {
           name: 'og:description',
           content: 'Daftar semua aplikasi pinjaman'
+        }
+      ]
+    }
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile,
+    meta: {
+      title: 'Tercepat - Profile',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Profile pengguna'
+        },
+        {
+          name: 'og:description',
+          content: 'Profile pengguna'
         }
       ]
     }

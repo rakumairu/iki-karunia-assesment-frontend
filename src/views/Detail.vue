@@ -56,7 +56,7 @@
             <router-link
               style="color: #33691e; font-weight: 500;"
               class="text-uppercase"
-              :to="{ name: 'reviews', params: { appId: $route.params.appId } }"
+              :to="{ name: 'Review', params: { appId: $route.params.appId } }"
               v-if="comments.length !== 0"
             >
               Lihat Semua Resensi
@@ -123,7 +123,7 @@
         <!-- Similar Apps -->
         <swiper :options='swiperOption' v-if="apps.length > 0">
           <swiper-slide v-for="(app) in apps" :key="app.id">
-            <router-link :to="{ name: 'detail', params: { appId: app.id } }" :key="app.id" >
+            <router-link :to="{ name: 'Detail', params: { appId: app.id } }" :key="app.id" >
               <AppSuggestion v-bind="app" />
             </router-link>
           </swiper-slide>
