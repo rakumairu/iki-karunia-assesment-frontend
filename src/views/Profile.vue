@@ -32,6 +32,7 @@
     <div class="d-flex flex-column justify-content-center align-items-center pt-3" v-else>
       <div class="container">
         {{ user.phone_number }}
+        <router-link :to="{ name: 'Change Password' }" class="btn btn-primary btn-block">Change Password</router-link>
         <button class="btn btn-primary btn-block" @click="logout">Logout</button>
       </div>
     </div>
@@ -123,7 +124,8 @@ export default {
               } else {
                 if (data.data.type === 'phone_number_error') {
                   this.phone_number_error = true
-                } else if (data.data.type === 'password_error') {
+                }
+                if (data.data.type === 'password_error') {
                   this.password_error = true
                 }
               }

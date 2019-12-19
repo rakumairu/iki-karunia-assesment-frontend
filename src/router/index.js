@@ -6,6 +6,7 @@ const Reviews = () => import('../views/Reviews.vue')
 const Apps = () => import('../views/Apps.vue')
 const NotFound = () => import('../views/NotFound.vue')
 const Profile = () => import('../views/Profile.vue')
+const ChangePassword = () => import('../views/ChangePassword.vue')
 
 Vue.use(VueRouter)
 
@@ -96,6 +97,24 @@ const routes = [
         {
           name: 'og:description',
           content: 'Profile pengguna'
+        }
+      ]
+    }
+  },
+  {
+    path: '/changepassword',
+    name: 'Change Password',
+    component: ChangePassword,
+    meta: {
+      title: 'Tercepat - Change Password',
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Ganti password pengguna'
+        },
+        {
+          name: 'og:description',
+          content: 'Ganti password pengguna'
         }
       ]
     }
