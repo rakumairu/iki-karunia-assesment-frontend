@@ -1,5 +1,14 @@
 <template>
   <div class="container">
+    <div class="row d-flex justify-content-center mt-2">
+      <div class="col">
+        <div class="card" style="width: 100%">
+          <div class="card-body d-flex justify-content-center">
+            <Gauge />
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col">
         <swiper :options='swiperOption' v-if="banners.length > 0">
@@ -17,13 +26,15 @@
       </div>
     </div>
     <div class="row pt-3">
-      <div class="col-6">
+      <!-- <div class="col-6">
         <h4 class="text-left">Trending</h4>
       </div>
       <div class="col-6">
         <router-link :to="{ name: 'Semua App' }" tag="h4" class="text-right">Lihat Semua</router-link>
+      </div> -->
+      <div class="col">
+        <ProductCard v-for="(app, index) in apps" :key="index" v-bind="app" />
       </div>
-      <ProductCard v-for="(app, index) in apps" :key="index" v-bind="app" />
     </div>
     <OnlineService />
   </div>
@@ -77,6 +88,7 @@ export default {
   components: {
     ProductCard: () => import('../components/ProductCard'),
     OnlineService: () => import('../components/OnlineService'),
+    Gauge: () => import('../components/Gauge'),
     swiper,
     swiperSlide
   }
