@@ -8,8 +8,9 @@
         <div class="col d-flex justify-content-start pl-0">
           <h4 class="mt-3 text-left font-weight-bolder">{{ name }}</h4>
         </div>
-        <div class="col-auto d-flex justify-content-end align-items-center">
-          <router-link :to="{ name: 'Detail', params: { appId: id } }" class="btn btn-primary btn-lg float-right" :key="id">Ajukan</router-link>
+        <div class="col-auto d-flex justify-content-end align-items-center" @click="something">
+          <router-link :to="{ name: 'Detail', params: { appId: id } }" class="btn btn-primary btn-lg float-right" :key="id" v-if="!playstore_url">Ajukan</router-link>
+          <a :href="playstore_url" class="btn btn-primary btn-lg float-right" :key="id" target="__blank" v-else>Ajukan</a>
         </div>
       </li>
       <li class="list-group-item">
@@ -34,9 +35,25 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'product-card',
-  props: ['id', 'name', 'logo_url', 'loan_amount_from', 'loan_amount_to', 'interest_rate', 'term_from', 'term_to', 'annotations']
+  props: ['id', 'name', 'logo_url', 'loan_amount_from', 'loan_amount_to', 'interest_rate', 'term_from', 'term_to', 'annotations', 'playstore_url'],
+  methods: {
+    something () {
+      let user = localStorage.getItem('user')
+      if (user) {
+        user = JSON.parse(user)
+        axios.post('http://147.139.138.100:8000/api/add_user_app', {
+          app_id: this.id,
+          phone_number: user.phone_number.toString(),
+          jwt: localStorage.getItem('jwt')
+        })
+          .then(response => console.log(response))
+      }
+    }
+  }
 }
 </script>
 

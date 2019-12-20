@@ -7,6 +7,8 @@ const Apps = () => import('../views/Apps.vue')
 const NotFound = () => import('../views/NotFound.vue')
 const Profile = () => import('../views/Profile.vue')
 const ChangePassword = () => import('../views/ChangePassword.vue')
+const ApplicationHistory = () => import('../views/ApplicationHistory.vue')
+const Prohibited = () => import('../views/Prohibited.vue')
 
 Vue.use(VueRouter)
 
@@ -107,6 +109,7 @@ const routes = [
     component: ChangePassword,
     meta: {
       title: 'Tercepat - Change Password',
+      login: true,
       metaTags: [
         {
           name: 'description',
@@ -118,6 +121,30 @@ const routes = [
         }
       ]
     }
+  },
+  {
+    path: '/riwayat',
+    name: 'Riwayat Aplikasi',
+    component: ApplicationHistory,
+    meta: {
+      title: 'Tercepat - Riwayat Aplikasi',
+      login: true,
+      metaTags: [
+        {
+          name: 'description',
+          content: 'Riwayat aplikasi pengguna'
+        },
+        {
+          name: 'og:description',
+          content: 'Riwayat aplikasi pengguna'
+        }
+      ]
+    }
+  },
+  {
+    path: '/prohibited',
+    name: 'prohibited',
+    component: Prohibited
   },
   {
     path: '*',
@@ -141,6 +168,12 @@ const router = new VueRouter({
 
 // This callback runs before every route change, including on page load.
 router.beforeEach((to, from, next) => {
+  if (to.meta.login) {
+    if (!localStorage.getItem('user')) {
+      router.push({ name: 'prohibited' })
+    }
+  }
+
   // This goes through the matched routes from last to first, finding the closest route with a title.
   // eg. if we have /some/deep/nested/route and /some, /deep, and /nested have titles, nested's will be chosen.
   const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title)

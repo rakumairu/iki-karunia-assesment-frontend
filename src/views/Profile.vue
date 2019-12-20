@@ -4,6 +4,9 @@
     <div class="d-flex flex-column justify-content-center align-items-center pt-3" v-if="!user">
       <div class="container mt-auto mb-auto">
         <h3 class="mb-4">Tercepat</h3>
+        <div class="alert alert-danger" v-for="(message, index) in error_messages" :key="index">
+          {{ message }}
+        </div>
         <div class="form-group mb-3">
           <input
             type="number"
@@ -32,7 +35,8 @@
     <div class="d-flex flex-column justify-content-center align-items-center pt-3" v-else>
       <div class="container">
         {{ user.phone_number }}
-        <router-link :to="{ name: 'Change Password' }" class="btn btn-primary btn-block">Change Password</router-link>
+        <router-link :to="{ name: 'Riwayat Aplikasi' }" class="btn btn-primary btn-block">Riwayat Aplikasi</router-link>
+        <router-link :to="{ name: 'Change Password' }" class="btn btn-primary btn-block">Ubah Password</router-link>
         <button class="btn btn-primary btn-block" @click="logout">Logout</button>
       </div>
     </div>
@@ -51,7 +55,8 @@ export default {
       phone_number_error: false,
       password_error: false,
       view: 'login',
-      user: null
+      user: null,
+      error_messages: []
     }
   },
   mounted () {
@@ -63,8 +68,10 @@ export default {
   methods: {
     changeView (view) {
       this.view = view
+      this.clearErrorTrace()
     },
     login () {
+      this.clearErrorTrace()
       axios.post('http://147.139.138.100:8000/api/login', {
         phone_number: this.phone_number,
         password: this.password
@@ -78,9 +85,9 @@ export default {
             this.phone_number = ''
             this.password = ''
           } else {
-            // todo: handle message ditampilin
             if (data.data.type) {
               if (typeof data.data.type === 'object') {
+                this.error_messages.push(data.data.message)
                 if (data.data.type['phone_number']) {
                   this.phone_number_error = true
                 }
@@ -90,8 +97,10 @@ export default {
               } else {
                 if (data.data.type === 'phone_number_error') {
                   this.phone_number_error = true
+                  this.error_messages.push(data.data.message)
                 } else if (data.data.type === 'password_error') {
                   this.password_error = true
+                  this.error_messages.push(data.data.message)
                 }
               }
             }
@@ -99,6 +108,7 @@ export default {
         })
     },
     register () {
+      this.clearErrorTrace()
       axios.post('http://147.139.138.100:8000/api/register', {
         phone_number: this.phone_number,
         password: this.password
@@ -112,9 +122,9 @@ export default {
             this.phone_number = ''
             this.password = ''
           } else {
-            // todo: handle message ditampilin
             if (data.data.type) {
               if (typeof data.data.type === 'object') {
+                this.error_messages.push(data.data.message)
                 if (data.data.type['phone_number']) {
                   this.phone_number_error = true
                 }
@@ -124,9 +134,11 @@ export default {
               } else {
                 if (data.data.type === 'phone_number_error') {
                   this.phone_number_error = true
+                  this.error_messages.push(data.data.message)
                 }
                 if (data.data.type === 'password_error') {
                   this.password_error = true
+                  this.error_messages.push(data.data.message)
                 }
               }
             }
@@ -137,6 +149,11 @@ export default {
       localStorage.removeItem('user')
       localStorage.removeItem('jwt')
       this.user = null
+    },
+    clearErrorTrace () {
+      this.error_messages = []
+      this.phone_number_error = false
+      this.password_error = false
     }
   },
   watch: {

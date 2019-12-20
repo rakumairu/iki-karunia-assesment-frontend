@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row d-flex justify-content-center mt-2">
+    <!-- <div class="row d-flex justify-content-center mt-2">
       <div class="col">
         <div class="card" style="width: 100%">
           <div class="card-body d-flex justify-content-center">
@@ -8,7 +8,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="row">
       <div class="col">
         <swiper :options='swiperOption' v-if="banners.length > 0">
@@ -88,7 +88,7 @@ export default {
   components: {
     ProductCard: () => import('../components/ProductCard'),
     OnlineService: () => import('../components/OnlineService'),
-    Gauge: () => import('../components/Gauge'),
+    // Gauge: () => import('../components/Gauge'),
     swiper,
     swiperSlide
   }
